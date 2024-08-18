@@ -1,74 +1,71 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import SearchIcon from "./Search.svg";
 import MovieCard from "./MovieCard";
 
-
-const movies1 = {
-  "id": 1022789,
-  "popularity": 3179.049,
-  "poster_path": "/stKGOm8UyhuLPR9sZLjs5AkmncA.jpg",
-  "Year": "2024-06-11",
-  "title": "Inside Out 2",
-
-};
-
 const App = () => {
-  const [movieslist, setMovieslist] = useState([]);
-  const [searchterm,setsearchterm]=useState("");
+  const [moviesList, setMoviesList] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filteredMovies, setFilteredMovies] = useState([]);
+
   useEffect(() => {
-    fetchdata();
-  }, [searchterm]);
+    fetchData();
+  }, []);
 
-  const fetchdata = async () => {
-    const response = await fetch("https://api.themoviedb.org/3/movie/popular?page=1&api_key=732dfe94c237f44327af913ebba97825");
-    
+  useEffect(() => {
+   
+    filterMovies();
+  }, [searchQuery, moviesList]);
 
-
-    const data = await response.json();
-    setMovieslist(data.results);
-    console.log(data.results);
+  const fetchData = async () => {
+    try {
+      const response = await fetch("https://api.themoviedb.org/3/movie/popular?page=1&api_key=732dfe94c237f44327af913ebba97825");
+      const data = await response.json();
+      setMoviesList(data.results);
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+    }
   };
 
+  const filterMovies = () => {
+    if (!searchQuery) {
+      setFilteredMovies(moviesList);
+    } else {
+      const filtered = moviesList.filter(movie =>
+        movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredMovies(filtered);
+    }
+  };
 
+  const handleChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
 
   return (
-    <>
-      <div className="app">
-        <h1>Hello Movies</h1>
-        <div className="search">
-          <input
-            placeholder="Search Movies"
-            value={searchterm}
-            onChange={(e) =>setsearchterm(e.target.value)}
-          />
-
-          <img src={SearchIcon}
-            alt="search" 
-          onclick={() =>fetchdata(searchterm)} />
-        </div>
-        {
-          movieslist?.length > 0
-            ? (
-              <div className="container">
-                {movieslist.map((movie) => (
-                  <MovieCard movie={movie} />
-
-                ))}
-              </div>
-            ) : (
-              <div className="empty">
-                <h2>no movies found</h2>
-              </div>
-            )
-        }
-
-
-
+    <div className="app">
+      <h1>Hello Movies</h1>
+      <div className="search">
+        <input
+          placeholder="Search Movies"
+          value={searchQuery}
+          onChange={handleChange}
+        />
       </div>
-
-    </>
+      {
+        filteredMovies.length > 0 ? (
+          <div className="container">
+            {filteredMovies.map((movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </div>
+        ) : (
+          <div className="empty">
+            <h2>No movies found</h2>
+          </div>
+        )
+      }
+    </div>
   );
-
 };
+
 export default App;

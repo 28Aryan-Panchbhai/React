@@ -1,22 +1,24 @@
 import React from "react";
 
-const MovieCard=({movie,Year})=>{
+const MovieCard=(props)=>{
+  const {movie}=props;
+  const{title,poster_path,year}=movie;
     return(
         <>
          <div className="movie">
                 <div>
-                  <p>{movie.Year}</p>
+                  <p>{year}</p>
                 </div>
 
                 <div>
-                  <img src={movie.poster_path!=="/stKGOm8UyhuLPR9sZLjs5AkmncA.jpg"?movie.poster_path:"https//via.placeholder.com/400"}
-                   alt={movie.title} 
-                   />
+                <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt="title" />
+                
+                
                 </div>
 
                 <div>
-                  <span>{movie.Type}</span>
-                  <h3>{movie.title}</h3>
+                
+                  <h3>{title}</h3>
                 </div>
 
               </div>
