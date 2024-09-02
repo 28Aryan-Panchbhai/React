@@ -14,7 +14,7 @@
 
 body {
   font-family: var(--font-roboto);
-  background-color: #212426;
+  background-color: #d0759a4a;
 }
 
 .app {
@@ -31,8 +31,8 @@ h1 {
   letter-spacing: 0.9px;
   background: linear-gradient(
     90deg,
-    rgba(249, 211, 180, 1) 0%,
-    rgba(249, 211, 180, 0) 100%
+    rgb(231, 164, 7) 100%,
+    rgba(198, 97, 15, 0) 100%
   );
   background-clip: text;
   -webkit-background-clip: text;
@@ -51,8 +51,8 @@ h1 {
   padding: 1.5rem 1.75rem;
   border-radius: 3rem;
   background: #1f2123;
-  -webkit-box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
-  box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
+  -webkit-box-shadow: 5px 5px 7px #6a891b, -5px -5px 7px #222527;
+  box-shadow: 5px 5px 7px #3b3e3f, -5px -5px 7px #222527;
 }
 
 .search input {
@@ -97,7 +97,9 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #0817e6;
 }
+
 
 .empty h2 {
   font-size: 1.25rem;
@@ -230,3 +232,4 @@ h1 {
     margin: 1rem;
   }
 }
+

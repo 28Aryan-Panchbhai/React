@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router,Route,Routes } from "react-router-dom";
 import "./App.css";
 import MovieCard from "./MovieCard";
+import MovieDetails from "./MovieDetails";
 
 const App = () => {
   const [moviesList, setMoviesList] = useState([]);
@@ -42,8 +44,13 @@ const App = () => {
   };
 
   return (
+    <Router>
+      <Routes>
+        <Route 
+        path="/"
+        element={
     <div className="app">
-      <h1>Hello Movies</h1>
+      <h1>OK MOVIES</h1>
       <div className="search">
         <input
           placeholder="Search Movies"
@@ -60,12 +67,18 @@ const App = () => {
           </div>
         ) : (
           <div className="empty">
-            <h2>No movies found</h2>
+            <h>No movies found</h2>
           </div>
-        )
-      }
+        )}
+      
     </div>
+        }
+        />
+        <Route path="/movie/:id"
+        element={<MovieDetails />} />
+        </Routes>
+        </Router>
   );
-};
+};  
 
 export default App;
